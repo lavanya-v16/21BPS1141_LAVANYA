@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21BPS1141</title> <!-- Replace with your roll number -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .submit-btn {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .response {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submit JSON Data</h1>
+    <form method="POST" action="/bfhl">
+        <textarea name="json_data" placeholder='Enter JSON here (e.g. {"data": ["A","1","b"]})' required>{{ json_data }}</textarea>
+        <br>
+        <input type="submit" value="Submit" class="submit-btn" />
+        <select name="select" class="select">
+            <option value="" selected disabled>Select field to filter</option>
+            <option value="Alphabets">Alphabets</option>
+            <option value="Numbers">Numbers</option>
+            <option value="Highest lowercase alphabet">Highest lowercase alphabet</option>
+        </select>
+    </form>
+
+    <div class="response">
+        {% if response_data %}
+            <h2>Response:</h2>
+            <div>Success: {{ response_data.is_success }}</div>
+            <div>User ID: {{ response_data.user_id }}</div>
+            <div>Email: {{ response_data.email }}</div>
+            <div>Roll Number: {{ response_data.roll_number }}</div>
+            {% if response_data.numbers %}
+                <div>Numbers: {{ response_data.numbers }}</div>
+            {% endif %}
+            {% if response_data.alphabets %}
+                <div>Alphabets: {{ response_data.alphabets }}</div>
+            {% endif %}
+            {% if response_data.highest_lowercase_alphabet %}
+                <div>Highest Lowercase Alphabet: {{ response_data.highest_lowercase_alphabet }}</div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
